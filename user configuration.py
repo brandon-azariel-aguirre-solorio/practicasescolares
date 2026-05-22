@@ -2,8 +2,16 @@ test_settings =[
     {
         'theme':'dark',
         'languages':'english'
+    },
+    {
+        'theme':'ligth',
+        'languages':'spanish'
+    },
+    {
+        'theme':'blue',
+        'languages':'french'
     }
-    
+      
 ]
 
 def add_setting(dictionary_set, tuple_set):
@@ -28,6 +36,13 @@ def delate_setting(dictionary_set, tuple_set):
     key, value = dictionary_set
     key = key.lower()
     if key in dictionary_set:
-        
+        dictionary_set.pop(key)
         return f"Setting '{key}' deleted successfully."
-    return f"Setting '{key}' does not exist! Cannot update a non-existing setting."
+    return f"Setting not found!"
+
+def view_setting(dictionary_set):
+    if dictionary_set == "":
+        return 'No settings available.'
+    else:
+        lines = [f"{key.capitalize()}: {value}" for key, value in dictionary_set.items()]
+        return "Current User Settings:\n" + "\n".join(lines)
