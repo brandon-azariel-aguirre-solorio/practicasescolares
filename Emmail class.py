@@ -1,3 +1,5 @@
+import datetime
+
 class Email:
     def __init__(self, sender, receiver, subject, body):
         self.sender = sender
@@ -53,3 +55,18 @@ class Inbox:
         if actual_index < 0 or actual_index >= len(self.emails):
             print('Invalid email number.\n')
             return
+        self.emails[actual_index].display_full_email()
+
+    def delete_email(self, index):
+        if not self.emails:
+            print('Inbox is empty.\n')
+            return
+        actual_index = index - 1
+        if actual_index < 0 or actual_index >= len(self.emails):
+            print('Invalid email number.\n')
+            return
+        del self.emails[actual_index]
+        print('Email deleted.\n')
+
+current_time = datetime.datetime.now()
+print(current_time.strftime('%H:%M:%S'))
