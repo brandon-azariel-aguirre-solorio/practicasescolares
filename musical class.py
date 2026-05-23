@@ -1,19 +1,28 @@
-class MusicalInstrument:
-    def __init__(self, name, instrument_type):
+class Planet:
+    def __init__ (self,name,planet_type,star):
+        
         self.name = name
-        self.instrument_type = instrument_type
+        self.planet_type = planet_type
+        self.star = star
+        
+        if not all(isinstance(arg, str) for arg in [name, planet_type, star]):
+            raise TypeError("name, planet type, and star must be strings")
+        if any (arg == '' for arg in [name, planet_type, star]):
+            raise ValueError('name, planet_type, and star must be non-empty strings')
+    def orbit (self):
+        return f'{self.name} is orbiting around {self.star}...'
+    
+    def __str__(self):
+        return f'Planet: {self.name} | Type: {self.planet_type} | Star: {self.star}'
 
-    def play(self):
-        print(f'The {self.name} is fun to play!')
+planet_1 = Planet('tierra','1','2')
+planet_2 = Planet('sol','3','4')
+planet_3 = Planet('jupyter','5','6')
 
-    def get_fact(self):
-        return f'The {self.name} is part of the {self.instrument_type} family of instruments.'
+print(planet_1)
+print(planet_2)
+print(planet_3)
 
-
-instrument_1 = MusicalInstrument('Oboe', 'woodwind')
-instrument_2 = MusicalInstrument('Trumpet', 'brass')
-
-instrument_1.play()
-print(instrument_1.get_fact())
-instrument_2.play()
-print(instrument_2.get_fact())
+print(planet_1.orbit())
+print(planet_2.orbit())
+print(planet_3.orbit())
