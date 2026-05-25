@@ -15,9 +15,13 @@ class GameCharacter:
         
 
     @health.setter
-    def health(self):
+    def health(self,health):
         if health < 0:
-            health = 100
+            self._health = 0
+        elif health > 100:
+            self._health = 100
+        else:
+            self._health = health
     
     @property
     def mana(self):
@@ -25,16 +29,20 @@ class GameCharacter:
         
 
     @mana.setter
-    def mana(self):
+    def mana(self,mana):
         if mana < 0:
-            mana = 50
+            self._mana = 0
+        elif mana > 50:
+            self._mana = 50
+        else:
+            self._mana = mana
     @property
     def level(self):
         return self._level
     
     def level_up(self):
         
-        self.level += 1
+        self._level += 1
        
         self.health = 100
         self.mana = 50
@@ -43,7 +51,7 @@ class GameCharacter:
     
     def __str__(self):
         return (
-            f"Character: {self.name}\n"
+            f"Name: {self.name}\n"
             f"Level: {self.level}\n"
             f"Health: {self.health}\n"
             f"Mana: {self.mana}"
