@@ -1,6 +1,9 @@
 class MediaError(Exception):
     """Custom exception for media-related errors."""
 
+    def __init__(self, message, obj):
+        super().__init__(message)
+        self.obj = obj
 
 class Movie:
     """Parent class representing a movie."""
@@ -47,15 +50,21 @@ class MediaCatalogue:
 
     def add(self, media_item):
         if not isinstance(media_item, Movie):
-            raise TypeError('Only Movie or TVSeries instances can be added')
+            raise MediaError('Only Movie or TVSeries instances can be added', media_item)
         self.items.append(media_item)
 
+    def get_movies(self):
+        return [item for item in self.items if type(item) is Movie]
+
+    def get_tv_series(self):
+        return [item for item in self.items if isinstance(item, TVSeries)]
+    
     def __str__(self):
         if not self.items:
             return 'Media Catalogue (empty)'
+        
 
         result = f'Media Catalogue ({len(self.items)} items):\n\n'
-        
         for i, movie in enumerate(self.items, 1):
             result += f'{i}. {movie}\n'
         return result
@@ -76,3 +85,6 @@ try:
     print(catalogue)
 except ValueError as e:
     print(f'Validation Error: {e}')
+except MediaError as e:
+    print(f'Media Error: {e}')
+    print(f'Unable to add {e.obj}: {type(e.obj)}')
