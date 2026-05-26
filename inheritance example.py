@@ -17,3 +17,25 @@ class Amphibian(Walker, Swimmer):
 frog = Amphibian('Freddy')
 print(frog.introduce())
 # Output: I'm Freddy the frog. I can walk on land and I can swim in water.
+
+
+
+
+class Cat:
+   def speak(self):
+       return "A cat meow"
+
+class Bird:
+   def speak(self):
+       return "A bird tweet"
+  
+class Monkey:
+   def speak(self):
+       return "A monkey ooh ooh aah aah ooh ooh aah aah"
+
+def animal_sound(animal):
+   print(animal.speak())
+
+animal_sound(Cat())
+animal_sound(Bird())
+animal_sound(Monkey())
