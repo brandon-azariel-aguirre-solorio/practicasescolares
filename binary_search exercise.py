@@ -1,21 +1,31 @@
-def binary_search(search_list, value):
-    path_to_target = []
+def square_root_bisection(number, tolerance=1e-7, maximun_interaction=100):
+    if number < 0:
+        raise ValueError('Square root of negative number is not defined in real numbers')
+    
+    if number == 0 or number == 1:
+        print(f"The square root of {number} is {number}")
+        return number
+
     low = 0
-    high = len(search_list) - 1
-    while low <= high:
-        mid = (low + high) // 2
-        value_at_middle = search_list[mid]
-        path_to_target.append(value_at_middle)
+    high = max(1, number)
+    iterations = 0
 
-        if value == value_at_middle:
-            return path_to_target, f'Value found at index {mid}'
-        elif value > value_at_middle:
-            low = mid + 1
+    while iterations < maximun_interaction:
+        midpoint = (low + high) / 2
+        square = midpoint ** 2
+
+        if (high - low) < tolerance:
+            print(f"The square root of {number} is approximately {midpoint}")
+            return midpoint
+
+        if square < number:
+            low = midpoint
         else:
-            high = mid - 1
+            high = midpoint
 
-    return [], "Value not found"
+        iterations += 1
 
-print(binary_search([1, 2, 3, 4, 5], 3))
-print(binary_search([1, 2, 3, 4, 5, 9], 4))
-print(binary_search([1, 3, 5, 9, 14, 22], 10))
+    print(f"Failed to converge within {maximun_interaction} iterations")
+    return None
+
+print( square_root_bisection(0.001, 1e-7, 50))
